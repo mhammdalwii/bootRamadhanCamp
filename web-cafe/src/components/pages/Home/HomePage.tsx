@@ -70,7 +70,7 @@ const HomePage = () => {
       <div className={styles.menu}>
         {menus.map((item: Menu) => (
           <div className={styles.item} key={item.id}>
-            <img className={styles.image} style={{ width: "100px" }} src={item.image_url} alt={item.name} /> {item.name}
+            <img className={styles.image} src={item.image_url} alt={item.name} /> {item.name}
           </div>
         ))}
       </div>
