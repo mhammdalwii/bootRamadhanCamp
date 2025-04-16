@@ -11,6 +11,7 @@ interface PropTypes {
 
 const Button = (props: PropTypes) => {
   const { children, type = "button", onClick } = props;
+
   return (
     <button
       className={styles.button}

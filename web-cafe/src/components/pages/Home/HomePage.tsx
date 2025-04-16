@@ -2,6 +2,7 @@ import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import { useEffect, useState } from "react";
 import styles from "./Home.module.css";
+import { useQuery } from "@tanstack/react-query";
 
 const makanan = [
   {
@@ -32,15 +33,31 @@ const HomePage = () => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
 
-  const [menus, setMenus] = useState([]);
+  // const [menus, setMenus] = useState([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    fetch("https://wpu-cafe.vercel.app/api/menu")
-      .then((res) => res.json())
-      .then((result) => setMenus(result.data));
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch("https://wpu-cafe.vercel.app/api/menu")
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       setMenus(result.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       setError(error.message);
+  //     });
+  // }, []);
 
-  console.log(menus);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["dataMenu"],
+    queryFn: async () => {
+      return await fetch("https://wpu-cafe.vercel.app/api/menu").then((res) => res.json());
+    },
+  });
+
   return (
     <main className={darkMode ? styles.dark : styles.light}>
       <h2 onClick={handleClickLogin}>Menu Makanan</h2>
@@ -58,6 +75,7 @@ const HomePage = () => {
         </Button>
       ))}
       <br />
+      {isLoading ? "loading..." : ""}
       <Button
         onClick={() => {
           setDarkMode(!darkMode);
@@ -68,7 +86,7 @@ const HomePage = () => {
       </Button>
       <br />
       <div className={styles.menu}>
-        {menus.map((item: Menu) => (
+        {data?.data.map((item: Menu) => (
           <div className={styles.item} key={item.id}>
             <img className={styles.image} src={item.image_url} alt={item.name} /> {item.name}
           </div>
