@@ -3,25 +3,28 @@ import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import styles from "./Login.module.css";
 import { login } from "../../../services/auth.service";
+import { setLocalStorage } from "../../../utils/localStorages";
 
 const Login = () => {
-  const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const payLoad = {
-      email: form.email.value,
+  const handleLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const payload = {
+      email: form.email.value, // Using email as required by the login function
       password: form.password.value,
     };
-    const result = await login(payLoad);
+    const result = await login(payload);
+    setLocalStorage("auth", result.token);
+    window.location.href = "/orders";
   };
 
   return (
     <main className={styles.login}>
       <div className={styles.card}>
         <h1 className={styles.title}>Login</h1>
-        <form action="" className={styles.form} onSubmit={handleLogin}>
-          <Input label="email" name="email" id="email" placeholder="Insert Email" required />
-          <Input label="password" name="password" id="password" type="password" placeholder="Insert Password" required />
+        <form className={styles.form} onSubmit={handleLogin}>
+          <Input label="Email" name="email" id="email" type="email" placeholder="Insert Email" required />
+          <Input label="Password" name="password" id="password" type="password" placeholder="Insert Password" required />
           <Button type="submit">Login</Button>
         </form>
       </div>

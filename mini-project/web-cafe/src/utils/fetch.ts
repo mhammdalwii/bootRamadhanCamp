@@ -1,4 +1,4 @@
-export const fetchAPI = async (url: string, options: RequestInit = {}) => {
+const fetchAPI = async (url: string, options: RequestInit = {}) => {
   const response = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -9,3 +9,5 @@ export const fetchAPI = async (url: string, options: RequestInit = {}) => {
   const data = await response.json();
   return data;
 };
+
+export default fetchAPI;

@@ -1,11 +1,11 @@
 import { environment } from "../constants/environment";
-import { ILogin } from "../types/auth";
-import { fetchAPI } from "../utils/fetch";
+import fetchAPI from "../utils/fetch";
 
-export const login = async (payload: ILogin) => {
+export const login = async (payload: { email: string; password: string }) => {
   const result = await fetchAPI(`${environment.API_URL}/auth/login`, {
     method: "POST",
     body: JSON.stringify(payload),
   });
+
   return result;
 };
