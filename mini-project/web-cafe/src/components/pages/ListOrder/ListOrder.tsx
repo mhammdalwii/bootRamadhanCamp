@@ -49,10 +49,10 @@ const ListOder = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order: any, index: number) => (
+            {orders.map((order: IOrder, index: number) => (
               <tr key={order.id}>
                 <td>{index + 1}</td>
-                <td>{order.customer_name}</td>
+                <td>{order.costumer_name}</td>
                 <td>{order.table_number}</td>
                 <td>${order.total}</td>
                 <td>{order.status}</td>
@@ -60,11 +60,7 @@ const ListOder = () => {
                   <Link to={`/orders/${order.id}`}>
                     <Button>Detail</Button>
                   </Link>
-                  {order.status === "PROCESSING" && (
-                    <Button onClick={() => handleComplateOrder(order.id)} color="success">
-                      Completed
-                    </Button>
-                  )}
+                  {order.status === "PROCCESING" && <Button onClick={() => handleComplateOrder(order.id)}>Completed</Button>}
                 </td>
               </tr>
             ))}

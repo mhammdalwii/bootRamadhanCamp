@@ -12,6 +12,19 @@ export const getOrders = async () => {
   }).then((data) => data);
   return result;
 };
+
+export const getOrderById = async (id: string) => {
+  const url = `${environment.API_URL}/orders${id}`;
+
+  const result = await fetchAPI(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getLocalStorage("auth")}`,
+    },
+  }).then((data) => data);
+  return result;
+};
+
 export const updateOrder = async (id: string, payload: { status: string }) => {
   const result = await fetchAPI(`${environment.API_URL}/orders/${id}`, {
     method: "PUT",

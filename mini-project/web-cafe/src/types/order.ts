@@ -9,7 +9,7 @@ interface IOrder {
   costumer_name: string;
   table_number: number;
   cart: ICart[];
-  status: "PENDING" | "PROCCESING" | "COMPLETED" | "CANCELED";
+  status: "PENDING" | "PROCCESING" | "COMPLATED";
   total: number;
 }
 
