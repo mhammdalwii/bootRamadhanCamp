@@ -3,13 +3,14 @@ import fetchAPI from "../utils/fetch";
 import { getLocalStorage } from "../utils/localStorages";
 
 export const getOrders = async () => {
-  const url = `${environment.API_URL}/orders?page=1&pageSize=10`;
+  const url = `${environment.API_URL}/orders?page=1&pageSize=25`;
   const result = await fetchAPI(url, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${getLocalStorage("auth")}`,
     },
   }).then((data) => data);
+
   return result;
 };
 
