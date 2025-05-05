@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { IOrder } from "../../../types/order";
+import { ICart, IOrder } from "../../../types/order";
 import { getOrderById } from "../../../services/order.service";
 import styles from "./DetailOrder.module.css";
 import Button from "../../ui/Button";
@@ -15,7 +15,7 @@ const DetailOrder = () => {
       setOrder(result);
     };
     fetchOrder();
-  }, []);
+  }, [id]);
 
   return (
     <main className={styles.detail}>
@@ -47,6 +47,15 @@ const DetailOrder = () => {
         </div>
         <div className={styles.cart}>
           <h3>Orders Items</h3>
+          <div className={styles.list}></div>
+          {order?.cart?.map((item: ICart) => (
+            <div className={styles.item} key={item.menuId}>
+              <img className={styles.image} src={item?.menuItem?.image_url} alt={item?.menuItem?.name} />
+              <p className={styles.name}>
+                {item.quantity} X {item.menuItem?.name}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     </main>
