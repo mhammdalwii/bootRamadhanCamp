@@ -12,8 +12,10 @@ interface ICart {
   id?: string;
   menuId?: string;
   quantity: number;
-  notes: string;
+  notes?: string;
   menuItem?: Imenu;
+  name?: string;
+  options?: { value: string; label: string }[];
 }
 
 interface IOrder {
@@ -25,4 +27,4 @@ interface IOrder {
   total: number;
 }
 
-export type { IOrder, ICart };
+export type { IOrder, ICart, Imenu };
